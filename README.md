@@ -1,102 +1,76 @@
+# MarkdownViewSupport
 
-![MarkdownView screenshot](http://i.imgur.com/PufzgYX.jpg)
-[![Download](https://api.bintray.com/packages/falnatsheh/maven/MarkdownView/images/download.svg)](https://bintray.com/falnatsheh/maven/MarkdownView/_latestVersion)
+[![Download](https://api.bintray.com/packages/boxresin/maven/MarkdownViewSupport/images/download.svg) ](https://bintray.com/boxresin/maven/MarkdownViewSupport/_latestVersion)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/BoxResin/MarkdownViewSupport/master/LICENSE.txt)
+
+![MarkdownView screenshot](https://cloud.githubusercontent.com/assets/13031505/25468471/09454dd6-2b51-11e7-91ad-dd3e02f27359.gif)
 
 ## About
 
-MarkdownView (Markdown For Android) is an Android library that helps you display Markdown text or files (local/remote) as formatted HTML, and style the output using CSS.
+This is a lightweight support library for [`MarkdownView`](https://github.com/falnatsheh/MarkdownView). `MarkdownView` is a Markdown renderer for Android. It has backward compatibility with API 7 and higher. For more information, see the [original project](https://github.com/falnatsheh/MarkdownView).
 
-The MarkdownView itself extends Android Webview and adds the necessary logic to parse Markdown (using MarkdownJ) and display the output HTML on the view.
+**NOTE**: Some unimportant features of `MarkdownView` have been removed in order to make the library lighter.
 
 ## Getting started
 
-- To add MarkdownView to your project, add the following to `build.gradle` file:
-```javascript
-	dependencies { 
-	    compile 'us.feras.mdv:markdownview:1.1.0'
-	}
+To add `MarkdownViewSupport` library to your project, add the following to `build.gradle` file:
+```gradle
+dependencies { 
+    compile 'boxresin.library:MarkdownViewSupport:1.0.0'
+}
 ```
 
 ## Usage
 
-Add MarkdownView to your layout: 
+Add `<MarkdownView/>` to your layout: 
 
 ```xml
-    <us.feras.mdv.MarkdownView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/markdownView" />
+<us.feras.mdv.MarkdownView
+    xmlns:mdv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    mdv:cssFromAssets="markdown_css_themes/paperwhite.css"
+    mdv:markdown="## Hello Markdown"
+    android:id="@+id/markdownView" />
 ```
+`cssFromAssets` attribute is optional. If you want to apply custom style to the Markdown text, you should make a CSS file at `assets` directory and attach its path to `cssFromAssets` attribute. You can also use `markdownFromAssets` attribute to set Markdown text from the `assets` as well.
 
-and reference it in your Activity/Fragment:  
+and refer it in your Activity/Fragment:
 
 ```java
 MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdownView);
-markdownView.loadMarkdown("## Hello Markdown"); 
 ```
-**Note**:
+**NOTE**:
 You could also create the view by code. Below an example of how to set the whole activity to be a MarkdownView by Adding the following to your onCreate method:
 
 ```java
-  MarkdownView markdownView = new MarkdownView(this);
-  setContentView(markdownView);
-  markdownView.loadMarkdown("## Hello Markdown"); 
+MarkdownView markdownView = new MarkdownView(this);
+setContentView(markdownView);
+
+markdownView.loadMarkdown("## Hello Markdown");
+markdownView.loadCssFromAssets("markdown_css_themes/paperwhite.css");
 ```
 
-## Screenshots
-
-<img src="http://i.imgur.com/gY8eXaj.jpg" width="300"> 
-<img src="http://i.imgur.com/ETHYbCv.jpg" width="300"> 
-
-## Demo App and Code Sample
-
-The above screenshots taking from the demo app which could be found here. The demo app include code to demonstrate: 
-
-- Loading Local Markdown File. 
-- Loading Remote Markdown File. 
-- Loading Markdown text.
-- Live Preview sample code (similar to [Marked Mac app](http://marked2app.com/))
-- Themes
-
-## Loading Markdown text or file: 
-
-- `loadMarkdown(String text)`:
-Using this method will result in loading md string to the MarkdownView and displaying it as HTML. 
-
- 
-- `loadMarkdownFile(String url)`:
-You can use this method to load local or online files. 
-
-To load a local file, you have to add it to your assets folder and pass a url that start with "file:///android_asset/" : 
-
-```java
-markdownView.loadMarkdownFile("file:///android_asset/myFile.md");
-```
-
-To load a remote file you need to pass the full url :    
-
-```java
-markdownView.loadMarkdownFile("http://www.my-site.com/myFile.md");
-```
+For more information, see [Whole XML attributes and methods of MarkdownView](https://github.com/BoxResin/MarkdownViewSupport/wiki/Whole-XML-attributes-and-methods-of-MarkdownView).
 
 ## Theming
 
-You could apply custom CSS to the MarkdownView. Example: 
+You could take a look at CSS example [here](https://github.com/BoxResin/MarkdownViewSupport/wiki/Markdown-CSS-form), you could also view them in the sample app.
 
-```java
-markdownView.loadMarkdownFile("file:///android_asset/hello.md","file:///android_asset/MyCustomTheme.css");
-```
-You could take a look at CSS example [here](https://github.com/falnatsheh/MarkdownView/tree/master/css-themes), you could also view them in the sample app.
-
-## ChangeLog: 
-
-- **MarkdownView 1.1.0**:
-	- Support Loading Markdown file from assets subfolders (Thanks [@echodjb](https://github.com/DiegoRosado)). 
-- **MarkdownView 1.0.0**:
-	- Convert to Gradle Project (Avillable now on [jCenter](https://bintray.com/falnatsheh/maven/MarkdownView/view)). 
-	- Fix CSS Issue (Thanks [@swanson](https://github.com/swanson) & [@echodjb](https://github.com/echodjb)). 
-	- Update demo app.  
-
-						
 ## License
-Apache 2.0
+```
+Copyright 2017 Minsuk Eom
+Copyright 2011 Feras Alnatsheh
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
